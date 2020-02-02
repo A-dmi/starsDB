@@ -5,8 +5,8 @@ import ItemList from "../item-list/item-list";
 import "./people-page.css";
 import SwapiService from "../../services/swapi-service";
 import Row from "../row/row";
-import ItemDetails from "../person-details";
-import { Record } from "../person-details/item-details";
+import ItemDetails from "../item-details";
+import { Record } from "../item-details/item-details";
 
 export default class PeoplePage extends Component {
   swapiService = new SwapiService();

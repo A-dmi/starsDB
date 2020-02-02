@@ -3,13 +3,13 @@ import React, { Component } from "react";
 import Header from "../header";
 import RandomPlanet from "../random-planet";
 import ItemList from "../item-list";
-import ItemDetails from "../person-details";
+import ItemDetails from "../item-details"
 
 import "./app.css";
 import PeoplePage from "../people-page/people-page";
 import SwapiService from "../../services/swapi-service";
 import Row from "../row/row";
-import { Record } from "../person-details/item-details";
+import { Record } from "../item-details/item-details";
 
 export default class App extends Component {
   swapiService = new SwapiService();
@@ -21,21 +21,18 @@ export default class App extends Component {
   };
 
   onPersonSelected = id => {
-    console.log(id);
     this.setState({
       selectedPerson: id
     });
   };
 
   onShipSelected = id => {
-    console.log(id);
     this.setState({
       selectedShip: id
     });
   };
 
   onPlanetSelected = id => {
-    console.log(id);
     this.setState({
       selectedPlanet: id
     });
