@@ -41,6 +41,8 @@ export default class ItemDetails extends Component {
     if (!itemId) {
       return;
     }
+    this.setState({ loadedPerson: true });
+
     getData(itemId).then(item => {
       this.setState({
         person: item,
@@ -58,12 +60,10 @@ export default class ItemDetails extends Component {
     const { person, loadedPerson, image } = this.state;
     const { id, name, gender, birthYear, eyeColor } = person;
     const item = person;
-    console.log(this.props.children);
 
     if (loadedPerson) {
       return <Spinner />;
     }
-    console.log(person);
 
     return (
       <div className="person-details card">

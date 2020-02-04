@@ -2,28 +2,27 @@ import React, { Component } from "react";
 
 import Header from "../header";
 import RandomPlanet from "../random-planet";
-import ItemList from "../item-list";
-import ItemDetails from "../item-details"
 
 import "./app.css";
 import PeoplePage from "../people-page/people-page";
 import SwapiService from "../../services/swapi-service";
 import Row from "../row/row";
-import { Record } from "../item-details/item-details";
+import { SwapiServiceProvider } from "../swapi-service-context";
+import {
+  PersonDetails,
+  PlanetDetails,
+  StarshipDetails,
+  PersonList,
+  PlanetList,
+  StarshipList
+} from "../sw-components";
 
 export default class App extends Component {
   swapiService = new SwapiService();
 
   state = {
-    selectedPerson: null,
     selectedShip: null,
     selectedPlanet: null
-  };
-
-  onPersonSelected = id => {
-    this.setState({
-      selectedPerson: id
-    });
   };
 
   onShipSelected = id => {
@@ -39,63 +38,23 @@ export default class App extends Component {
   };
 
   render() {
-    const {
-      getAllStarships,
-      getStarship,
-      getStarshipImage,
-      getAllPlanets,
-      getPlanet,
-      getPlanetImage
-    } = this.swapiService;
-
     return (
       <div>
         <Header />
         <RandomPlanet />
 
         <PeoplePage />
+        <SwapiServiceProvider value={this.swapiService}>
+          <Row
+            left={<StarshipList onShipSelected={this.onShipSelected} />}
+            right={<PlanetDetails itemId={this.state.selectedShip} />}
+          />
 
-        <Row
-          left={
-            <ItemList
-              onItemSelected={this.onShipSelected}
-              getData={getAllStarships}
-              renderItem={({ name }) => `${name}`}
-            />
-          }
-          right={
-            <ItemDetails
-              itemId={this.state.selectedShip}
-              getData={getStarship}
-              getImage={getStarshipImage}
-            >
-              <Record field="model" label="Model:" />
-              <Record field="length" label="Length:" />
-              <Record field="costInCredits" label="Cost:" />
-            </ItemDetails>
-          }
-        />
-
-        <Row
-          left={
-            <ItemList
-              onItemSelected={this.onPlanetSelected}
-              getData={getAllPlanets}
-              renderItem={({ name }) => `${name}`}
-            />
-          }
-          right={
-            <ItemDetails
-              itemId={this.state.selectedPlanet}
-              getData={getPlanet}
-              getImage={getPlanetImage}
-            >
-              <Record field="gender" label="Gender:" />
-              <Record field="birthYear" label="Birth Year:" />
-              <Record field="eyeColo" label="Eye Color:" />
-            </ItemDetails>
-          }
-        />
+          <Row
+            left={<PlanetList onPlanetSelected={this.onPlanetSelected} />}
+            right={<PlanetDetails itemId={this.state.selectedPlanet} />}
+          />
+        </SwapiServiceProvider>
       </div>
     );
   }
