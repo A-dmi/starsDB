@@ -1,5 +1,12 @@
-import { PlanetDetails, StarshipDetails } from "./details";
+import { PlanetDetails, StarshipDetails, FilmDetails } from "./details";
 
-import { PlanetList, StarshipList } from "./item-lists";
+import { PlanetList, StarshipList, FilmList } from "./item-lists";
 
-export { PlanetDetails, StarshipDetails, PlanetList, StarshipList };
+export {
+  PlanetDetails,
+  StarshipDetails,
+  PlanetList,
+  StarshipList,
+  FilmList,
+  FilmDetails
+};

@@ -6,7 +6,7 @@ export default class SwapiService {
     const res = await fetch(`${this._apiBase}${url}`);
 
     if (!res.ok) {
-      throw new Error(`Could not fetch ${url}` + `, received ${res.status}`);
+      throw new Error(`Could not fetch ${url}, received ${res.status}`);
     }
     return await res.json();
   };
@@ -41,6 +41,16 @@ export default class SwapiService {
     return this._transformStarship(starship);
   };
 
+  getAllFilms = async () => {
+    const res = await this.getResource(`/films/`);
+    return res.results.map(this._transformFilm);
+  };
+
+  getFilm = async id => {
+    const starship = await this.getResource(`/films/${id}/`);
+    return this._transformFilm(starship);
+  };
+
   getPersonImage = ({ id }) => {
     return `${this._imageBase}/characters/${id}.jpg`;
   };
@@ -51,6 +61,10 @@ export default class SwapiService {
 
   getPlanetImage = ({ id }) => {
     return `${this._imageBase}/planets/${id}.jpg`;
+  };
+
+  getFilmImage = ({ id }) => {
+    return `${this._imageBase}/films/${id}.jpg`;
   };
 
   _extractId = item => {
@@ -89,6 +103,16 @@ export default class SwapiService {
       gender: person.gender,
       birthYear: person.birth_year,
       eyeColor: person.eye_color
+    };
+  };
+
+  _transformFilm = film => {
+    return {
+      id: this._extractId(film),
+      name: film.title,
+      date: film.release_date,
+      crawl: film.opening_crawl,
+      producer: film.producer
     };
   };
 }

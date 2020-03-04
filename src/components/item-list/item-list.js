@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import "./item-list.css";
 import { withData } from "../hoc-helpers";

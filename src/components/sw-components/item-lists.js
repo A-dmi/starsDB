@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import ItemList from "../item-list";
 import SwapiService from "../../services/swapi-service";
 
 const swapiService = new SwapiService();
 
-const { getAllStarships, getAllPlanets } = swapiService;
+const { getAllStarships, getAllPlanets, getAllFilms } = swapiService;
 
 const renderName = ({ name }) => <span>{name}</span>;
 const renderModelAndName = ({ model, name }) => (
@@ -12,6 +12,16 @@ const renderModelAndName = ({ model, name }) => (
     {name} ({model})
   </span>
 );
+
+const FilmList = ({ onFilmSelected }) => {
+  return (
+    <ItemList
+      onItemSelected={onFilmSelected}
+      getData={getAllFilms}
+      renderItem={renderName}
+    />
+  );
+};
 
 const StarshipList = ({ onShipSelected }) => {
   return (
@@ -33,4 +43,4 @@ const PlanetList = ({ onPlanetSelected }) => {
   );
 };
 
-export { PlanetList, StarshipList };
+export { PlanetList, StarshipList, FilmList };
